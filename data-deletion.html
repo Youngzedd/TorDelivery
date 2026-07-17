@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Deletion | Tor Delivery</title>
+  <meta name="description" content="Request deletion of your Tor Delivery account and personal data. We process all verified requests within 14 business days in accordance with the Nigeria Data Protection Act 2023." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- DELETION PAGE ---- */
+    .deletion-hero {
+      background: linear-gradient(135deg, #0f1217 0%, #1e2433 60%, #0f1217 100%);
+      padding: 140px 0 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deletion-hero-shapes { position: absolute; inset: 0; pointer-events: none; }
+    .deletion-hero-shapes .shape { position: absolute; border-radius: 50%; opacity: .05; }
+    .deletion-hero-shapes .shape-1 { width: 400px; height: 400px; background: #ef4444; top: -140px; right: -60px; }
+    .deletion-hero-shapes .shape-2 { width: 280px; height: 280px; background: var(--blue); bottom: -60px; left: -80px; }
+    .deletion-hero-content { position: relative; z-index: 1; }
+    .deletion-hero-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .deletion-hero-breadcrumb a { font-size: 14px; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; }
+    .deletion-hero-breadcrumb a:hover { color: rgba(255,255,255,.9); }
+    .breadcrumb-sep { color: rgba(255,255,255,.25); font-size: 14px; }
+    .breadcrumb-current { font-size: 14px; color: #f87171; font-weight: 500; }
+    .deletion-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -.02em; }
+    .deletion-hero p { font-size: 16px; color: rgba(255,255,255,.6); max-width: 520px; line-height: 1.7; }
+    .deletion-hero-wave { line-height: 0; }
+    .deletion-hero-wave svg { width: 100%; height: 56px; display: block; }
+
+    .deletion-body { background: var(--bg); padding: 64px 0 96px; }
+    .deletion-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+
+    /* Warning banner */
+    .deletion-warning {
+      background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-lg);
+      padding: 20px 24px; display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .deletion-warning-icon { width: 40px; height: 40px; border-radius: 10px; background: #fee2e2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .deletion-warning-icon svg { color: #dc2626; }
+    .deletion-warning h4 { font-size: 15px; font-weight: 700; color: #991b1b; margin-bottom: 4px; }
+    .deletion-warning p { font-size: 14px; color: #7f1d1d; line-height: 1.6; margin: 0; }
+
+    /* Form card */
+    .deletion-form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px;
+    }
+    .deletion-form-card h2 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .deletion-form-card > p { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 28px; }
+
+    .deletion-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
+    .deletion-step-row { display: flex; gap: 16px; }
+    .deletion-step-left { display: flex; flex-direction: column; align-items: center; }
+    .deletion-step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--orange-light); color: var(--orange);
+      font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .deletion-step-line { width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 20px; }
+    .deletion-step-row:last-child .deletion-step-line { display: none; }
+    .deletion-step-content { padding-bottom: 24px; }
+    .deletion-step-content h4 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 4px; margin-top: 5px; }
+    .deletion-step-content p { font-size: 13px; color: var(--gray); line-height: 1.6; margin: 0; }
+
+    .deletion-form { display: flex; flex-direction: column; gap: 20px; }
+    .deletion-form .form-group { margin-bottom: 0; }
+    .deletion-phone-wrap { position: relative; }
+    .deletion-phone-prefix {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 15px; font-weight: 500; color: var(--gray); pointer-events: none;
+    }
+    .deletion-phone-wrap input { padding-left: 42px; }
+
+    .deletion-reason { display: flex; flex-direction: column; gap: 10px; }
+    .deletion-reason-option { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; transition: all .15s; }
+    .deletion-reason-option:hover { border-color: var(--orange); background: var(--orange-light); }
+    .deletion-reason-option input[type="radio"] { accent-color: var(--orange); margin-top: 2px; flex-shrink: 0; }
+    .deletion-reason-option span { font-size: 14px; color: var(--dark); line-height: 1.5; }
+
+    .deletion-confirm-check { display: flex; align-items: flex-start; gap: 10px; padding: 16px; background: var(--bg); border-radius: 8px; border: 1.5px solid var(--border); cursor: pointer; transition: border-color .15s; }
+    .deletion-confirm-check:has(input:checked) { border-color: var(--orange); background: var(--orange-light); }
+    .deletion-confirm-check input[type="checkbox"] { accent-color: var(--orange); margin-top: 2px; flex-shrink: 0; }
+    .deletion-confirm-check span { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    .deletion-confirm-check strong { color: var(--dark); }
+
+    .btn-danger { background: #dc2626; color: #fff; border-color: #dc2626; }
+    .btn-danger:hover { background: #b91c1c; border-color: #b91c1c; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(220,38,38,.3); }
+    .btn-danger:disabled { background: #fca5a5; border-color: #fca5a5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* Sidebar info */
+    .deletion-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .deletion-info-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px;
+    }
+    .deletion-info-card h3 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .deletion-info-card h3 svg { color: var(--orange); }
+    .deletion-info-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .deletion-info-list li { position: relative; padding-left: 16px; font-size: 13px; color: var(--gray); line-height: 1.7; }
+    .deletion-info-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+
+    .deletion-timeline { display: flex; flex-direction: column; gap: 0; }
+    .deletion-tl-row { display: flex; gap: 12px; }
+    .deletion-tl-left { display: flex; flex-direction: column; align-items: center; }
+    .deletion-tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 4px; }
+    .deletion-tl-line { width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 16px; }
+    .deletion-tl-row:last-child .deletion-tl-line { display: none; }
+    .deletion-tl-content { padding-bottom: 16px; }
+    .deletion-tl-content strong { display: block; font-size: 13px; font-weight: 700; color: var(--dark); }
+    .deletion-tl-content span { font-size: 12px; color: var(--gray); }
+
+    .deletion-alt-card { background: var(--dark); border-radius: var(--radius-lg); padding: 24px; }
+    .deletion-alt-card h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .deletion-alt-card p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 16px; }
+    .deletion-alt-card .btn-white { font-size: 13px; padding: 10px 18px; }
+
+    /* Success state */
+    .deletion-success {
+      display: none; text-align: center; padding: 48px 24px;
+    }
+    .deletion-success.visible { display: block; }
+    .deletion-success-icon {
+      width: 72px; height: 72px; border-radius: 50%; background: #dcfce7;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    }
+    .deletion-success-icon svg { color: #16a34a; }
+    .deletion-success h3 { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+    .deletion-success p { font-size: 15px; color: var(--gray); line-height: 1.7; max-width: 420px; margin: 0 auto 24px; }
+    .deletion-success-ref { display: inline-block; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+    .deletion-success-ref strong { color: var(--dark); font-family: monospace; }
+
+    @media (max-width: 900px) {
+      .deletion-layout { grid-template-columns: 1fr; }
+      .deletion-sidebar { order: -1; }
+    }
+    @media (max-width: 600px) {
+      .deletion-hero { padding: 120px 0 56px; }
+      .deletion-form-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-wrapper">
+    <nav class="nav container">
+      <a href="index.html" class="nav-logo">
+        <img src="Tor Delivery Logo.png" alt="Tor Delivery" class="logo-img" />
+        <span class="logo-text">Delivery</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="index.html#ecommerce">E-Commerce</a></li>
+        <li><a href="index.html#investors">Investors</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-primary nav-cta">Request Pickup →</a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#services" onclick="closeMobileMenu()">Services</a></li>
+      <li><a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
+      <li><a href="index.html#ecommerce" onclick="closeMobileMenu()">E-Commerce</a></li>
+      <li><a href="index.html#investors" onclick="closeMobileMenu()">Investors</a></li>
+      <li><a href="index.html#contact" onclick="closeMobileMenu()">Contact</a></li>
+      <li><a href="index.html#contact" class="btn btn-primary" onclick="closeMobileMenu()">Request Pickup →</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="deletion-hero">
+    <div class="deletion-hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+    <div class="container deletion-hero-content">
+      <div class="deletion-hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Account Deletion</span>
+      </div>
+      <h1>Delete Your Account</h1>
+      <p>You have the right to request deletion of your Tor Delivery account and all associated personal data. We process all verified requests within 14 business days.</p>
+    </div>
+    <div class="deletion-hero-wave">
+      <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#f8f9fb"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <div class="deletion-body">
+    <div class="container deletion-layout">
+
+      <!-- MAIN FORM COLUMN -->
+      <div>
+        <div class="deletion-warning">
+          <div class="deletion-warning-icon">
+            <svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M9 3.5L2 16h14L9 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 9v3M9 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>This action is permanent and cannot be undone</h4>
+            <p>Deleting your account will permanently remove your profile and all associated data. Active delivery orders must be completed or cancelled before deletion can be processed. Operational records required for regulatory compliance are retained for 7 years as mandated by Nigerian financial law.</p>
+          </div>
+        </div>
+
+        <div class="deletion-form-card">
+          <!-- FORM -->
+          <div id="deletionFormView">
+            <h2>Submit a Deletion Request</h2>
+            <p>Enter your registered phone number below. We will verify your identity before processing the deletion of your account and data.</p>
+
+            <!-- HOW IT WORKS STEPS -->
+            <div class="deletion-steps">
+              <div class="deletion-step-row">
+                <div class="deletion-step-left">
+                  <div class="deletion-step-num">1</div>
+                  <div class="deletion-step-line"></div>
+                </div>
+                <div class="deletion-step-content">
+                  <h4>Submit this form</h4>
+                  <p>Provide your registered phone number and reason for deletion.</p>
+                </div>
+              </div>
+              <div class="deletion-step-row">
+                <div class="deletion-step-left">
+                  <div class="deletion-step-num">2</div>
+                  <div class="deletion-step-line"></div>
+                </div>
+                <div class="deletion-step-content">
+                  <h4>Identity verification</h4>
+                  <p>Our team will send a verification code to your registered number via SMS to confirm your identity.</p>
+                </div>
+              </div>
+              <div class="deletion-step-row">
+                <div class="deletion-step-left">
+                  <div class="deletion-step-num">3</div>
+                  <div class="deletion-step-line"></div>
+                </div>
+                <div class="deletion-step-content">
+                  <h4>Account deleted within 14 business days</h4>
+                  <p>Once verified, we will permanently delete your account and all associated personal data from our systems.</p>
+                </div>
+              </div>
+            </div>
+
+            <form class="deletion-form" id="deletionForm" novalidate>
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter the name on your account" autocomplete="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Registered Phone Number</label>
+                <div class="deletion-phone-wrap">
+                  <span class="deletion-phone-prefix">+234</span>
+                  <input type="tel" id="phone" name="phone" placeholder="0800 000 0000" autocomplete="tel" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address (optional)</label>
+                <input type="email" id="email" name="email" placeholder="hello@example.com" autocomplete="email" />
+              </div>
+
+              <div class="form-group">
+                <label>Reason for deletion</label>
+                <div class="deletion-reason" role="radiogroup" aria-label="Reason for deletion">
+                  <label class="deletion-reason-option">
+                    <input type="radio" name="reason" value="no_longer_use" required />
+                    <span>I no longer use the app</span>
+                  </label>
+                  <label class="deletion-reason-option">
+                    <input type="radio" name="reason" value="privacy_concerns" />
+                    <span>Privacy concerns</span>
+                  </label>
+                  <label class="deletion-reason-option">
+                    <input type="radio" name="reason" value="switching_service" />
+                    <span>Switching to another service</span>
+                  </label>
+                  <label class="deletion-reason-option">
+                    <input type="radio" name="reason" value="other" />
+                    <span>Other reason</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="additionalInfo">Additional information (optional)</label>
+                <textarea id="additionalInfo" name="additionalInfo" placeholder="Any details you'd like to share..." rows="3"></textarea>
+              </div>
+
+              <label class="deletion-confirm-check">
+                <input type="checkbox" id="confirmDeletion" name="confirmDeletion" required />
+                <span>I understand that deleting my account is <strong>permanent and irreversible</strong>. All my personal data, delivery history, and preferences will be removed. Active orders must be completed before deletion is processed.</span>
+              </label>
+
+              <p id="formError" style="color:#dc2626;font-size:13px;display:none;margin:0;"></p>
+
+              <button type="submit" class="btn btn-danger btn-full" id="submitBtn">
+                <svg viewBox="0 0 16 16" fill="none" width="15" height="15"><path d="M2 4h12M5 4V2.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5V4m2 0l-.7 9.3a.5.5 0 01-.5.7H4.2a.5.5 0 01-.5-.7L3 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Submit Deletion Request
+              </button>
+
+              <p style="text-align:center;font-size:12px;color:var(--gray-light);margin:0;">
+                By submitting, you confirm this request is made under the Nigeria Data Protection Act 2023.
+              </p>
+            </form>
+          </div>
+
+          <!-- SUCCESS STATE -->
+          <div class="deletion-success" id="deletionSuccess">
+            <div class="deletion-success-icon">
+              <svg viewBox="0 0 32 32" fill="none" width="36" height="36"><path d="M6 16l7 7 13-13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Request Received</h3>
+            <p>Your account deletion request has been submitted. Our team will contact you via SMS on your registered number to verify your identity.</p>
+            <div class="deletion-success-ref">
+              Reference: <strong id="refNumber">TDR-000000</strong>
+            </div>
+            <p style="font-size:13px;color:var(--gray-light);">Keep this reference number. Your account will be deleted within <strong>14 business days</strong> of identity verification.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+              <a href="index.html" class="btn btn-ghost">Return to Homepage</a>
+              <a href="index.html#contact" class="btn btn-primary">Contact Support</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="deletion-sidebar">
+
+        <div class="deletion-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            What gets deleted
+          </h3>
+          <ul class="deletion-info-list">
+            <li>Your account profile and login credentials</li>
+            <li>Saved delivery addresses and preferences</li>
+            <li>Contact information (name, phone, email)</li>
+            <li>App usage data and device identifiers</li>
+          </ul>
+        </div>
+
+        <div class="deletion-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M8 1.5a4 4 0 00-4 4V7H3v7h10V7h-1V5.5a4 4 0 00-4-4zm0 1.5a2.5 2.5 0 012.5 2.5V7h-5V5.5A2.5 2.5 0 018 3z" stroke="currentColor" stroke-width="1.1"/></svg>
+            What we must retain
+          </h3>
+          <ul class="deletion-info-list">
+            <li>Completed delivery records are retained for <strong>7 years</strong> as required by Nigerian financial regulations</li>
+            <li>These records are anonymised from your personal identifiers where possible</li>
+            <li>Transaction data required for dispute resolution</li>
+          </ul>
+        </div>
+
+        <div class="deletion-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Timeline
+          </h3>
+          <div class="deletion-timeline">
+            <div class="deletion-tl-row">
+              <div class="deletion-tl-left">
+                <div class="deletion-tl-dot"></div>
+                <div class="deletion-tl-line"></div>
+              </div>
+              <div class="deletion-tl-content">
+                <strong>Day 0 — Request submitted</strong>
+                <span>You receive a confirmation reference</span>
+              </div>
+            </div>
+            <div class="deletion-tl-row">
+              <div class="deletion-tl-left">
+                <div class="deletion-tl-dot"></div>
+                <div class="deletion-tl-line"></div>
+              </div>
+              <div class="deletion-tl-content">
+                <strong>Day 1–2 — Identity verified</strong>
+                <span>SMS verification code sent to your number</span>
+              </div>
+            </div>
+            <div class="deletion-tl-row">
+              <div class="deletion-tl-left">
+                <div class="deletion-tl-dot"></div>
+                <div class="deletion-tl-line"></div>
+              </div>
+              <div class="deletion-tl-content">
+                <strong>Within 14 business days</strong>
+                <span>Account and personal data permanently deleted</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="deletion-alt-card">
+          <h3>Prefer to delete in-app?</h3>
+          <p>You can also delete your account directly from within the Tor Delivery mobile app. Go to <strong>Settings → Account → Delete Account</strong>.</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:0;">Need help? Contact our support team.</p>
+          <br />
+          <a href="index.html#contact" class="btn btn-white">Contact Support</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="Tor Delivery Logo.png" alt="Tor Delivery" class="logo-img" />
+          <span class="logo-text">Delivery</span>
+        </div>
+        <p>Fast, professional, and dependable delivery services for individuals and businesses across Calabar and Cross River State.</p>
+        <div class="social-links">
+          <a href="https://wa.me/2348081590971" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/tordeliveryng" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/TorDeliveryNG" target="_blank" rel="noopener" aria-label="Facebook" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://x.com/tordeliveryng" target="_blank" rel="noopener" aria-label="X (Twitter)" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="index.html#services">Courier &amp; Postal</a></li>
+          <li><a href="index.html#services">Last-Mile Delivery</a></li>
+          <li><a href="index.html#ecommerce">E-Commerce Logistics</a></li>
+          <li><a href="index.html#ecommerce">Pay on Delivery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#investors">Investors</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@tordelivery.com">hello@tordelivery.com</a></li>
+          <li><a href="mailto:admin@tordelivery.com">admin@tordelivery.com</a></li>
+          <li><a href="tel:+2348081590971">0808 159 0971</a></li>
+          <li><a href="index.html#contact">25 Murtala Mohammed Highway,<br/>Calabar, Cross River State</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Tor Delivery Limited. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP WIDGET -->
+  <div class="wa-widget" id="waWidget">
+    <div class="wa-popup" id="waPopup">
+      <div class="wa-popup-header">
+        <div class="wa-popup-avatar">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="wa-popup-info">
+          <p class="wa-popup-name">Tor Delivery</p>
+          <p class="wa-popup-status"><span class="wa-online-dot"></span> Typically replies instantly</p>
+        </div>
+        <button class="wa-close" id="waClose" aria-label="Close">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="wa-popup-body">
+        <div class="wa-bubble">
+          <p>Hi there! 👋</p>
+          <p>Need a delivery in Calabar? We're fast, reliable, and available Mon–Sat. Chat with us now!</p>
+          <span class="wa-time">Just now</span>
+        </div>
+      </div>
+      <a href="https://wa.me/2348081590971?text=Hi%20Tor%20Delivery%2C%20I%27d%20like%20to%20request%20a%20pickup." target="_blank" rel="noopener" class="wa-start-chat">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Start Chat
+      </a>
+    </div>
+    <button class="wa-fab" id="waFab" aria-label="Chat on WhatsApp">
+      <span class="wa-fab-icon wa-fab-open">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </span>
+      <span class="wa-fab-icon wa-fab-close" style="display:none">
+        <svg viewBox="0 0 20 20" fill="none" width="24" height="24"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </span>
+      <span class="wa-notification-dot"></span>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById('deletionForm');
+    const formView = document.getElementById('deletionFormView');
+    const successView = document.getElementById('deletionSuccess');
+    const errorEl = document.getElementById('formError');
+    const submitBtn = document.getElementById('submitBtn');
+    const refEl = document.getElementById('refNumber');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      errorEl.style.display = 'none';
+
+      const name = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const reason = form.querySelector('input[name="reason"]:checked');
+      const confirmed = document.getElementById('confirmDeletion').checked;
+
+      if (!name) { showError('Please enter your full name.'); return; }
+      if (!phone) { showError('Please enter your registered phone number.'); return; }
+      if (!reason) { showError('Please select a reason for deletion.'); return; }
+      if (!confirmed) { showError('Please confirm you understand this action is permanent.'); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      setTimeout(() => {
+        const ref = 'TDR-' + Math.floor(100000 + Math.random() * 900000);
+        refEl.textContent = ref;
+        formView.style.display = 'none';
+        successView.classList.add('visible');
+      }, 1200);
+    });
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

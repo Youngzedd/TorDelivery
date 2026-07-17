@@ -27,12 +27,19 @@ waClose.addEventListener('click', (e) => {
   closeWaPopup();
 });
 
-// Auto-open after 4 seconds on first visit
+// Auto-open when the contact section scrolls into view (once per session)
 if (!sessionStorage.getItem('waOpened')) {
-  setTimeout(() => {
-    openWaPopup();
-    sessionStorage.setItem('waOpened', '1');
-  }, 4000);
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    const waContactObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        openWaPopup();
+        sessionStorage.setItem('waOpened', '1');
+        waContactObserver.disconnect();
+      }
+    }, { threshold: 0.2 });
+    waContactObserver.observe(contactSection);
+  }
 }
 
 // Nav scroll effect
