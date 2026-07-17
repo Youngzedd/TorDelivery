@@ -19,22 +19,16 @@ jobs:
       - name: Configure SSH
         shell: powershell
         run: |
-          New-Item -ItemType Directory -Force -Path "C:\deploy-key" | Out-Null
-          Set-Content -Path "C:\deploy-key\id_ed25519" -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
+          Set-Content -Path "${{ runner.temp }}\id_ed25519" -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
+
       - name: Add known host
         shell: powershell
         run: |
-          New-Item -ItemType Directory -Force -Path "C:\deploy-key" | Out-Null
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} | Out-File -FilePath "C:\deploy-key\known_hosts" -Encoding ascii
-      - name: Add known host
-        shell: powershell
-        run: |
-          if (!(Test-Path ~\.ssh)) { New-Item -ItemType Directory -Path ~\.ssh }
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~\.ssh\known_hosts
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} | Out-File -FilePath "${{ runner.temp }}\known_hosts" -Encoding ascii
 
       - name: Deploy via SCP
         shell: powershell
         run: |
-          scp -r -i "C:\deploy-key\id_ed25519" -o "UserKnownHostsFile=C:\deploy-key\known_hosts" -P ${{ secrets.SSH_PORT }} `
+          scp -r -i "${{ runner.temp }}\id_ed25519" -o "UserKnownHostsFile=${{ runner.temp }}\known_hosts" -P ${{ secrets.SSH_PORT }} `
             .\* `
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
