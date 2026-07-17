@@ -16,11 +16,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Configure SSH
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path "C:\deploy-key" | Out-Null
+          Set-Content -Path "C:\deploy-key\id_ed25519" -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
+          icacls "C:\deploy-key\id_ed25519" /inheritance:r | Out-Null
+          icacls "C:\deploy-key\id_ed25519" /grant:r "$($env:USERNAME):(R)" | Out-Null
 
+      - name: Add known host
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path "C:\deploy-key" | Out-Null
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} | Out-File -FilePath "C:\deploy-key\known_hosts" -Encoding ascii
       - name: Add known host
         shell: powershell
         run: |
@@ -30,6 +38,6 @@ jobs:
       - name: Deploy via SCP
         shell: powershell
         run: |
-          scp -r -P ${{ secrets.SSH_PORT }} `
+          scp -r -i "C:\deploy-key\id_ed25519" -o "UserKnownHostsFile=C:\deploy-key\known_hosts" -P ${{ secrets.SSH_PORT }} `
             .\* `
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
