@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,15 +22,14 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Add known host
+        shell: pwsh
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          if (!(Test-Path ~\.ssh)) { New-Item -ItemType Directory -Path ~\.ssh }
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~\.ssh\known_hosts
 
-      - name: Deploy with rsync
+      - name: Deploy via SCP
+        shell: pwsh
         run: |
-          rsync -rlvz --delete --dry-run \
-            --chmod=D755,F644 --no-perms --no-owner --no-group \
-            -e "ssh -p ${{ secrets.SSH_PORT }}"
-            --exclude-from='.deployignore' \
-            ./ \
+          scp -r -P ${{ secrets.SSH_PORT }} `
+            .\* `
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
