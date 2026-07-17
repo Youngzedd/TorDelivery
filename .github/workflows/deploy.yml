@@ -22,7 +22,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Add known host
-        shell: pwsh
+        shell: powershell
         run: |
           if (!(Test-Path ~\.ssh)) { New-Item -ItemType Directory -Path ~\.ssh }
           ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~\.ssh\known_hosts
