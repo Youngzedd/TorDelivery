@@ -21,9 +21,6 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path "C:\deploy-key" | Out-Null
           Set-Content -Path "C:\deploy-key\id_ed25519" -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
-          icacls "C:\deploy-key\id_ed25519" /inheritance:r | Out-Null
-          icacls "C:\deploy-key\id_ed25519" /grant:r "$($env:USERNAME):(R)" | Out-Null
-
       - name: Add known host
         shell: powershell
         run: |
