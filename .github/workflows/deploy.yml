@@ -19,7 +19,11 @@ jobs:
       - name: Configure SSH
         shell: powershell
         run: |
-          Set-Content -Path "${{ runner.temp }}\id_ed25519" -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
+          $keyPath = "${{ runner.temp }}\id_ed25519"
+          Set-Content -Path $keyPath -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
+          icacls $keyPath /inheritance:r
+          icacls $keyPath /grant:r "*S-1-5-32-544:F"
+          icacls $keyPath /grant:r "SYSTEM:F"
 
       - name: Add known host
         shell: powershell
