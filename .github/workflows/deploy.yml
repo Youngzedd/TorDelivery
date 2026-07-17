@@ -25,7 +25,7 @@ jobs:
 
       - name: Deploy with rsync
         run: |
-          rsync -rlvz --delete \
+          rsync -rlvz --delete --dry-run \
             --chmod=D755,F644 --no-perms --no-owner --no-group \
             -e "ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_ed25519" \
             --exclude-from='.deployignore' \
