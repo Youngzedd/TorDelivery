@@ -21,10 +21,10 @@ jobs:
         run: |
           $keyPath = "${{ runner.temp }}\id_ed25519"
           Set-Content -Path $keyPath -Value "${{ secrets.SSH_PRIVATE_KEY }}" -NoNewline
+          $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
           icacls $keyPath /inheritance:r
-          icacls $keyPath /grant:r "*S-1-5-32-544:F"
-          icacls $keyPath /grant:r "SYSTEM:F"
-
+          icacls $keyPath /grant:r "${currentUser}:F"
+          icacls $keyPath
       - name: Add known host
         shell: powershell
         run: |
