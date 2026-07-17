@@ -28,7 +28,7 @@ jobs:
           ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~\.ssh\known_hosts
 
       - name: Deploy via SCP
-        shell: pwsh
+        shell: powershell
         run: |
           scp -r -P ${{ secrets.SSH_PORT }} `
             .\* `
