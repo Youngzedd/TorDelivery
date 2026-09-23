@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whistleblower / Report a Concern | Tor Delivery</title>
+  <meta name="description" content="Confidential reporting channel for Tor Delivery employees, riders, merchants, customers and contractors. Report fraud, misconduct, safety issues or other concerns — anonymously if you prefer." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- No referrer is sent from this page, so an onward click cannot leak that a
+       reporter was here. -->
+  <meta name="referrer" content="no-referrer" />
+  <style>
+    /* ---- WHISTLEBLOWER PAGE ---- */
+    .wb-hero {
+      background: linear-gradient(135deg, #0f1217 0%, #1e2433 60%, #0f1217 100%);
+      padding: 120px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .wb-hero-shapes { position: absolute; inset: 0; pointer-events: none; }
+    .wb-hero-shapes .shape { position: absolute; border-radius: 50%; opacity: .05; }
+    .wb-hero-shapes .shape-1 { width: 400px; height: 400px; background: var(--blue); top: -140px; right: -60px; }
+    .wb-hero-shapes .shape-2 { width: 280px; height: 280px; background: var(--orange); bottom: -60px; left: -80px; }
+    .wb-hero-content { position: relative; z-index: 1; padding-bottom: 72px; }
+    .wb-hero-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .wb-hero-breadcrumb a { font-size: 14px; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; }
+    .wb-hero-breadcrumb a:hover { color: rgba(255,255,255,.9); }
+    .wb-breadcrumb-sep { color: rgba(255,255,255,.25); font-size: 14px; }
+    .wb-breadcrumb-current { font-size: 14px; color: var(--orange); font-weight: 500; }
+    .wb-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -.02em; }
+    .wb-hero-content > p { font-size: 16px; color: rgba(255,255,255,.6); max-width: 560px; line-height: 1.7; }
+    .wb-hero-wave { line-height: 0; }
+    .wb-hero-wave svg { width: 100%; height: 56px; display: block; }
+
+    .wb-body { background: var(--bg); padding: 64px 0 96px; }
+    .wb-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+
+    /* Non-retaliation banner */
+    .wb-protect {
+      background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-lg);
+      padding: 20px 24px; display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .wb-protect-icon { width: 40px; height: 40px; border-radius: 10px; background: #dbeafe; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .wb-protect-icon svg { color: var(--blue); }
+    .wb-protect h4 { font-size: 15px; font-weight: 700; color: #1e3a8a; margin-bottom: 4px; }
+    .wb-protect p { font-size: 14px; color: #1e40af; line-height: 1.6; margin: 0; }
+
+    /* Intro card */
+    .wb-intro {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px 40px; margin-bottom: 24px;
+    }
+    .wb-intro h2 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+    .wb-intro p { font-size: 14px; color: var(--gray); line-height: 1.7; margin-bottom: 14px; }
+    .wb-intro p:last-child { margin-bottom: 0; }
+    .wb-who { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+    .wb-who span {
+      font-size: 13px; font-weight: 600; color: var(--dark);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 100px;
+    }
+
+    /* Form card */
+    .wb-form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px;
+    }
+    .wb-form-card h2 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .wb-form-card > div > p.wb-form-lede { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 28px; }
+
+    .wb-form { display: flex; flex-direction: column; gap: 22px; }
+    .wb-form .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .wb-form label.wb-label { font-size: 14px; font-weight: 600; color: var(--dark); }
+    .wb-form .wb-hint { font-size: 12.5px; color: var(--gray-light); line-height: 1.5; font-weight: 400; }
+    .wb-req { color: var(--orange); }
+    .wb-form input[type="text"],
+    .wb-form input[type="email"],
+    .wb-form input[type="tel"],
+    .wb-form input[type="date"],
+    .wb-form select,
+    .wb-form textarea {
+      width: 100%; padding: 12px 14px; font-family: var(--font); font-size: 14px;
+      color: var(--dark); background: var(--white);
+      border: 1px solid var(--border); border-radius: 10px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .wb-form textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+    .wb-form input:focus, .wb-form select:focus, .wb-form textarea:focus {
+      outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,75,26,.1);
+    }
+    .wb-form input.wb-invalid, .wb-form select.wb-invalid, .wb-form textarea.wb-invalid {
+      border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,.08);
+    }
+    .wb-form select {
+      appearance: none; cursor: pointer; padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+    }
+    .wb-field-error { font-size: 12.5px; color: #dc2626; display: none; }
+    .wb-field-error.visible { display: block; }
+
+    /* Report-type choice */
+    .wb-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .wb-choice-option {
+      display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
+      border: 1.5px solid var(--border); border-radius: 12px; padding: 16px;
+      background: var(--white); transition: border-color .15s, background .15s;
+    }
+    .wb-choice-option:hover { border-color: var(--gray-light); }
+    .wb-choice-option input { margin-top: 2px; accent-color: var(--orange); flex-shrink: 0; }
+    .wb-choice-option:has(input:checked) { border-color: var(--orange); background: var(--orange-light); }
+    .wb-choice-option strong { display: block; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .wb-choice-option span { font-size: 12.5px; color: var(--gray); line-height: 1.5; }
+
+    /* Contact section */
+    .wb-contact-section {
+      border: 1px dashed var(--border); border-radius: 14px;
+      padding: 24px; display: flex; flex-direction: column; gap: 22px;
+      background: #fcfcfd;
+    }
+    .wb-contact-head h3 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .wb-contact-head p { font-size: 13px; color: var(--gray); line-height: 1.6; margin: 0; }
+    .wb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .wb-anon-note {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 16px;
+    }
+    .wb-anon-note svg { color: #16a34a; flex-shrink: 0; margin-top: 1px; }
+    .wb-anon-note p { font-size: 13px; color: #166534; line-height: 1.6; margin: 0; }
+
+    .wb-form-error {
+      background: #fef2f2; border: 1px solid #fecaca; color: #991b1b;
+      font-size: 13.5px; line-height: 1.6; border-radius: 10px; padding: 12px 14px;
+      display: none;
+    }
+    .wb-form-error.visible { display: block; }
+
+    .btn-submit-wb { background: var(--orange); color: #fff; border-color: var(--orange); }
+    .btn-submit-wb:hover:not(:disabled) { background: var(--orange-dark); border-color: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,75,26,.35); }
+    .btn-submit-wb:disabled { opacity: .65; cursor: not-allowed; }
+
+    /* Success state */
+    .wb-success { display: none; text-align: center; padding: 16px 0; }
+    .wb-success.visible { display: block; }
+    .wb-success-icon {
+      width: 72px; height: 72px; border-radius: 50%; background: #dcfce7; color: #16a34a;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    }
+    .wb-success h3 { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+    .wb-success > p { font-size: 14.5px; color: var(--gray); line-height: 1.7; max-width: 460px; margin: 0 auto 22px; }
+    .wb-ref-box {
+      background: var(--dark); border-radius: var(--radius-lg);
+      padding: 24px; margin: 0 auto 18px; max-width: 420px;
+    }
+    .wb-ref-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 10px; }
+    .wb-ref-code {
+      font-size: clamp(24px, 5vw, 32px); font-weight: 900; color: #fff;
+      letter-spacing: .06em; font-variant-numeric: tabular-nums; line-height: 1.2;
+      word-break: break-all;
+    }
+    .wb-ref-copy {
+      margin-top: 14px; background: rgba(255,255,255,.12); color: #fff;
+      border: 1px solid rgba(255,255,255,.25); border-radius: 8px;
+      padding: 8px 16px; font-size: 13px; font-weight: 600; font-family: var(--font);
+      cursor: pointer; transition: background .15s;
+    }
+    .wb-ref-copy:hover { background: rgba(255,255,255,.22); }
+    .wb-save-warning {
+      background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
+      padding: 14px 16px; max-width: 460px; margin: 0 auto 22px;
+      font-size: 13.5px; color: #92400e; line-height: 1.6;
+    }
+    .wb-emailed-note { font-size: 13.5px; color: var(--gray); line-height: 1.6; max-width: 460px; margin: 0 auto 22px; }
+
+    /* Sidebar */
+    .wb-sidebar { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 96px; }
+    .wb-info-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px;
+    }
+    .wb-info-card h3 {
+      font-size: 15px; font-weight: 700; color: var(--dark);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .wb-info-card h3 svg { color: var(--orange); flex-shrink: 0; }
+    .wb-info-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .wb-info-list li { font-size: 13.5px; color: var(--gray); line-height: 1.6; padding-left: 18px; position: relative; }
+    .wb-info-list li::before {
+      content: ""; position: absolute; left: 0; top: 8px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--orange);
+    }
+    .wb-info-card > p { font-size: 13.5px; color: var(--gray); line-height: 1.6; }
+    .wb-direct-mail {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+      font-size: 13.5px; font-weight: 600; color: var(--blue); text-decoration: none; word-break: break-all;
+    }
+    .wb-direct-mail:hover { text-decoration: underline; }
+
+    /* Minimal header — no nav links, so nothing ties a report to a session */
+    .wb-nav { display: flex; align-items: center; height: 72px; justify-content: space-between; }
+    .wb-nav-note { font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 7px; }
+    .wb-nav-note svg { color: #16a34a; flex-shrink: 0; }
+
+    @media (max-width: 1024px) {
+      .wb-layout { grid-template-columns: 1fr; }
+      .wb-sidebar { position: static; }
+    }
+    @media (max-width: 768px) {
+      .wb-hero { padding: 100px 0 56px; }
+      .wb-intro, .wb-form-card { padding: 28px 22px; }
+      .wb-choice { grid-template-columns: 1fr; }
+      .wb-row { grid-template-columns: 1fr; }
+      .wb-nav-note span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MINIMAL HEADER
+       Deliberately no nav menu, no app CTA and no chat widget: nothing on this
+       page should link a report back to an identifiable session. -->
+  <header class="nav-wrapper">
+    <div class="container wb-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="Tor Delivery Logo.png" alt="Tor Delivery" class="logo-img" />
+        <span class="logo-text">Delivery</span>
+      </a>
+      <span class="wb-nav-note">
+        <svg viewBox="0 0 16 16" fill="none" width="15" height="15" aria-hidden="true"><path d="M8 1.8l5 2v3.6c0 3-2.1 5.4-5 6.3-2.9-.9-5-3.3-5-6.3V3.8l5-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.8 8l1.6 1.6L10.4 6.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Confidential channel · No login required</span>
+      </span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="wb-hero">
+    <div class="wb-hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+    <div class="container wb-hero-content">
+      <div class="wb-hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="wb-breadcrumb-sep">›</span>
+        <span class="wb-breadcrumb-current">Report a Concern</span>
+      </div>
+      <h1>Speak Up. We're Listening.</h1>
+      <p>A confidential channel for reporting fraud, misconduct, safety issues or any other concern about Tor Delivery. You can report anonymously — no login, no account, no questions about who you are.</p>
+    </div>
+    <div class="wb-hero-wave">
+      <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#f8f9fb"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <div class="wb-body">
+    <div class="container wb-layout">
+
+      <!-- MAIN COLUMN -->
+      <div>
+        <div class="wb-protect">
+          <div class="wb-protect-icon">
+            <svg viewBox="0 0 20 20" fill="none" width="20" height="20" aria-hidden="true"><path d="M10 2l6 2.4v4.3c0 3.6-2.5 6.5-6 7.5-3.5-1-6-3.9-6-7.5V4.4L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.3 10l1.9 1.9 3.6-3.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h4>You are protected when you speak up</h4>
+            <p>No one will face dismissal, demotion, or any other detriment for raising a genuine concern in good faith — regardless of whether the concern turns out to be substantiated. Retaliation against anyone who reports is itself a serious disciplinary matter.</p>
+          </div>
+        </div>
+
+        <div class="wb-intro">
+          <h2>About this channel</h2>
+          <p>This channel exists so that concerns can be raised safely and acted on properly. It is open to anyone connected to Tor Delivery:</p>
+          <div class="wb-who">
+            <span>Employees</span>
+            <span>Riders</span>
+            <span>Merchants</span>
+            <span>Customers</span>
+            <span>Contractors</span>
+          </div>
+          <p>You can use it to report fraud or financial misconduct, theft, safety violations, harassment or discrimination, bribery and corruption, data privacy breaches, regulatory non-compliance, conflicts of interest, or any other concern about how Tor Delivery operates.</p>
+          <p><strong>Reports go directly to the General Managing Director.</strong> Managers, supervisors and other superiors do not see them. Reports are not routed through line management or HR, and they are not visible to your supervisor or team.</p>
+          <p>If you would rather not use this form, you can email <a href="mailto:admin@tordelivery.com" style="color:var(--blue);font-weight:600;">admin@tordelivery.com</a> directly. Please note an email will show your address — use the anonymous option below if you would prefer we not know who you are.</p>
+        </div>
+
+        <div class="wb-form-card">
+          <!-- FORM -->
+          <div id="wbFormView">
+            <h2>Submit a Report</h2>
+            <p class="wb-form-lede">Fields marked <span class="wb-req">*</span> are required. Give as much detail as you can — specific dates, places and names help us act on what you tell us.</p>
+
+            <form class="wb-form" id="wbForm" method="post" action="submit-report.php" novalidate>
+              <input type="hidden" name="formType" value="whistleblower" />
+              <input type="hidden" name="startedAt" id="wbStartedAt" value="" />
+              <!-- Honeypot: hidden from people, tempting to bots. -->
+              <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                <label for="wbWebsite">Website</label>
+                <input type="text" id="wbWebsite" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <!-- 1. Report type -->
+              <div class="form-group">
+                <label class="wb-label" id="reportTypeLabel">How would you like to report? <span class="wb-req">*</span></label>
+                <div class="wb-choice" role="radiogroup" aria-labelledby="reportTypeLabel">
+                  <label class="wb-choice-option">
+                    <input type="radio" name="reportType" value="anonymous" id="wbAnonymous" checked />
+                    <span>
+                      <strong>Anonymous</strong>
+                      <span>We will not ask for or collect any detail that identifies you.</span>
+                    </span>
+                  </label>
+                  <label class="wb-choice-option">
+                    <input type="radio" name="reportType" value="identified" id="wbIdentified" />
+                    <span>
+                      <strong>With my contact details</strong>
+                      <span>Lets us come back to you for more information.</span>
+                    </span>
+                  </label>
+                </div>
+                <p class="wb-field-error" id="err-reportType">Please choose how you would like to report.</p>
+              </div>
+
+              <div class="wb-anon-note" id="wbAnonNote">
+                <svg viewBox="0 0 18 18" fill="none" width="18" height="18" aria-hidden="true"><path d="M9 2l5.5 2.2v3.9c0 3.3-2.3 6-5.5 6.9-3.2-.9-5.5-3.6-5.5-6.9V4.2L9 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                <p><strong>Reporting anonymously.</strong> No name, email, phone number or IP address will be recorded with this report. Because we will have no way to contact you, please include everything a reviewer would need to look into it.</p>
+              </div>
+
+              <!-- 2. Category -->
+              <div class="form-group">
+                <label class="wb-label" for="wbCategory">Category <span class="wb-req">*</span></label>
+                <select id="wbCategory" name="category" required>
+                  <option value="">Select a category…</option>
+                  <option>Fraud/financial misconduct</option>
+                  <option>Theft</option>
+                  <option>Safety violation</option>
+                  <option>Harassment/discrimination</option>
+                  <option>Bribery/corruption</option>
+                  <option>Data privacy breach</option>
+                  <option>Regulatory non-compliance</option>
+                  <option>Conflict of interest</option>
+                  <option>Other</option>
+                </select>
+                <p class="wb-field-error" id="err-category">Please choose a category.</p>
+              </div>
+
+              <!-- 3. Description -->
+              <div class="form-group">
+                <label class="wb-label" for="wbDescription">Description of incident <span class="wb-req">*</span></label>
+                <span class="wb-hint">What happened? Include as much detail as you can remember.</span>
+                <textarea id="wbDescription" name="description" rows="6" required placeholder="Describe what happened…"></textarea>
+                <p class="wb-field-error" id="err-description">Please describe the incident.</p>
+              </div>
+
+              <!-- 4. Date of incident -->
+              <div class="form-group">
+                <label class="wb-label" for="wbIncidentDate">Date of incident <span class="wb-req">*</span></label>
+                <span class="wb-hint">If it happened more than once, give the most recent date.</span>
+                <input type="date" id="wbIncidentDate" name="incidentDate" required />
+                <p class="wb-field-error" id="err-incidentDate">Please give the date of the incident.</p>
+              </div>
+
+              <!-- 5. Location -->
+              <div class="form-group">
+                <label class="wb-label" for="wbLocation">Location / state <span class="wb-req">*</span></label>
+                <select id="wbLocation" name="location" required>
+                  <option value="">Select a location…</option>
+                  <option>Cross River</option>
+                  <option>Akwa Ibom</option>
+                </select>
+                <p class="wb-field-error" id="err-location">Please choose a location.</p>
+              </div>
+
+              <!-- 6. People involved -->
+              <div class="form-group">
+                <label class="wb-label" for="wbPeopleInvolved">People involved <span class="wb-req">*</span></label>
+                <span class="wb-hint">Names and roles if you know them. Write "unknown" if you are not sure.</span>
+                <textarea id="wbPeopleInvolved" name="peopleInvolved" rows="3" required placeholder="Who was involved?"></textarea>
+                <p class="wb-field-error" id="err-peopleInvolved">Please tell us who was involved.</p>
+              </div>
+
+              <!-- 7. Witnesses -->
+              <div class="form-group">
+                <label class="wb-label" for="wbWitnesses">Witnesses <span style="color:var(--gray-light);font-weight:500;">(optional)</span></label>
+                <span class="wb-hint">Anyone else who saw what happened.</span>
+                <textarea id="wbWitnesses" name="witnesses" rows="3" placeholder="Anyone who witnessed this…"></textarea>
+              </div>
+
+              <!-- CONTACT DETAILS — injected only when "With my contact details" is chosen.
+                   Held in a template so the fields are genuinely absent from the DOM,
+                   and therefore from the submission, while reporting anonymously. -->
+              <template id="wbContactTemplate">
+                <div class="wb-contact-section" id="wbContactSection">
+                  <div class="wb-contact-head">
+                    <h3>Your contact details</h3>
+                    <p>We will use these only to follow up on this report. They are seen by the General Managing Director only — not by managers, supervisors or HR.</p>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="wb-label" for="wbFullName">Full name <span class="wb-req">*</span></label>
+                    <input type="text" id="wbFullName" name="fullName" autocomplete="off" placeholder="Your full name" />
+                    <p class="wb-field-error" id="err-fullName">Please enter your full name.</p>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="wb-label" for="wbRelationship">Relationship to Tor Delivery <span class="wb-req">*</span></label>
+                    <select id="wbRelationship" name="relationship">
+                      <option value="">Select…</option>
+                      <option>Employee</option>
+                      <option>Rider</option>
+                      <option>Merchant</option>
+                      <option>Customer</option>
+                      <option>Contractor</option>
+                      <option>Other</option>
+                    </select>
+                    <p class="wb-field-error" id="err-relationship">Please choose your relationship to Tor Delivery.</p>
+                  </div>
+
+                  <div class="wb-row">
+                    <div class="form-group">
+                      <label class="wb-label" for="wbEmail">Email <span class="wb-req">*</span></label>
+                      <input type="email" id="wbEmail" name="email" autocomplete="off" placeholder="you@example.com" />
+                      <p class="wb-field-error" id="err-email">Please enter a valid email address.</p>
+                    </div>
+                    <div class="form-group">
+                      <label class="wb-label" for="wbPhone">Phone number <span style="color:var(--gray-light);font-weight:500;">(optional)</span></label>
+                      <input type="tel" id="wbPhone" name="phone" autocomplete="off" placeholder="0800 000 0000" />
+                    </div>
+                  </div>
+                </div>
+              </template>
+              <div id="wbContactMount"></div>
+
+              <p class="wb-form-error" id="wbFormError" role="alert"></p>
+
+              <button type="submit" class="btn btn-submit-wb btn-full" id="wbSubmitBtn">
+                <svg viewBox="0 0 16 16" fill="none" width="15" height="15" aria-hidden="true"><path d="M14.5 1.5L7.5 8.5M14.5 1.5l-4.5 13-2.5-6-6-2.5 13-4.5z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Submit Report
+              </button>
+
+              <p style="text-align:center;font-size:12px;color:var(--gray-light);margin:0;line-height:1.6;">
+                This form is sent over a secure (HTTPS) connection directly to the General Managing Director.
+              </p>
+            </form>
+          </div>
+
+          <!-- SUCCESS STATE -->
+          <div class="wb-success" id="wbSuccess" tabindex="-1">
+            <div class="wb-success-icon">
+              <svg viewBox="0 0 32 32" fill="none" width="36" height="36" aria-hidden="true"><path d="M6 16l7 7 13-13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Report Received</h3>
+            <p>Thank you for speaking up. Your report has gone directly to the General Managing Director.</p>
+
+            <div class="wb-ref-box">
+              <p class="wb-ref-label">Your reference code</p>
+              <p class="wb-ref-code" id="wbRefCode">TD-0000-XXXXX</p>
+              <button type="button" class="wb-ref-copy" id="wbCopyBtn">Copy reference</button>
+            </div>
+
+            <div class="wb-save-warning">
+              <strong>Save this reference code now.</strong> Write it down or copy it somewhere safe. It is how you can follow up on this report, and for anonymous reports it is the only link back to what you submitted — we cannot look it up for you or send it again.
+            </div>
+
+            <p class="wb-emailed-note" id="wbEmailedNote" style="display:none;">
+              A copy of this reference has also been sent to <strong id="wbEmailedTo"></strong>.
+            </p>
+
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+              <a href="index.html" class="btn btn-ghost">Return to Homepage</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="wb-sidebar">
+        <div class="wb-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16" aria-hidden="true"><path d="M8 1.5l5 2v3.6c0 3-2.1 5.4-5 6.3-2.9-.9-5-3.3-5-6.3V3.5l5-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            How we protect you
+          </h3>
+          <ul class="wb-info-list">
+            <li>No dismissal, demotion or detriment for raising a genuine concern in good faith</li>
+            <li>Reports go straight to the General Managing Director — managers, supervisors and superiors never see them</li>
+            <li>Anonymous reports record no name, email, phone or IP address</li>
+            <li>Retaliation against a reporter is itself a disciplinary matter</li>
+          </ul>
+        </div>
+
+        <div class="wb-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Staying anonymous
+          </h3>
+          <p>If you choose to report anonymously, the contact fields are removed from this page entirely — there is nothing for your browser to send.</p>
+          <p style="margin-top:10px;">For complete anonymity, submit from a personal device on a network that is not managed by Tor Delivery.</p>
+        </div>
+
+        <div class="wb-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16" aria-hidden="true"><path d="M2 4.5h12v8H2v-8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M2 5l6 4 6-4" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            Prefer to email?
+          </h3>
+          <p>You can write to the General Managing Director directly. An email will show your address.</p>
+          <a href="mailto:admin@tordelivery.com" class="wb-direct-mail">admin@tordelivery.com</a>
+        </div>
+
+        <div class="wb-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16" aria-hidden="true"><path d="M8 1.8L2 4.4v3.4c0 3.4 2.5 6.2 6 6.9 3.5-.7 6-3.5 6-6.9V4.4L8 1.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M8 10.6v.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            In an emergency
+          </h3>
+          <p>This channel is monitored during business hours and is not for emergencies. If someone is in immediate danger, contact the emergency services first.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="Tor Delivery Logo.png" alt="Tor Delivery" class="logo-img" />
+          <span class="logo-text">Delivery</span>
+        </div>
+        <p>Fast, professional, and dependable delivery services for individuals and businesses across Cross River and Akwa Ibom States.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="index.html#services">Courier &amp; Postal</a></li>
+          <li><a href="index.html#services">Last-Mile Delivery</a></li>
+          <li><a href="index.html#ecommerce">E-Commerce Logistics</a></li>
+          <li><a href="index.html#ecommerce">Pay on Delivery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#app">Mobile App</a></li>
+          <li><a href="index.html#investors">Investors</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@tordelivery.com">hello@tordelivery.com</a></li>
+          <li><a href="tel:+2348081590971">0808 159 0971</a></li>
+          <li><a href="index.html#contact">Head Office<br/>25 Murtala Mohammed Highway,<br/>Calabar, Cross River State</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Tor Delivery Limited. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="whistleblower.html">Whistleblower / Report a Concern</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var form        = document.getElementById('wbForm');
+      var formView    = document.getElementById('wbFormView');
+      var successView = document.getElementById('wbSuccess');
+      var formError   = document.getElementById('wbFormError');
+      var submitBtn   = document.getElementById('wbSubmitBtn');
+      var anonNote    = document.getElementById('wbAnonNote');
+      var template    = document.getElementById('wbContactTemplate');
+      var mount       = document.getElementById('wbContactMount');
+      var radioAnon   = document.getElementById('wbAnonymous');
+      var radioIdent  = document.getElementById('wbIdentified');
+
+      document.getElementById('wbStartedAt').value = String(Date.now());
+
+      // Incident date cannot be in the future.
+      var dateInput = document.getElementById('wbIncidentDate');
+      dateInput.max = new Date().toISOString().split('T')[0];
+
+      /* ---- contact section: physically added / removed from the DOM ----
+         Removing (rather than hiding) guarantees the contact fields are absent
+         from the submitted form data while reporting anonymously. */
+      function showContact() {
+        if (document.getElementById('wbContactSection')) return;
+        mount.appendChild(template.content.cloneNode(true));
+        anonNote.style.display = 'none';
+      }
+      function hideContact() {
+        var section = document.getElementById('wbContactSection');
+        if (section) section.remove();
+        anonNote.style.display = '';
+      }
+      function syncContact() {
+        if (radioIdent.checked) showContact(); else hideContact();
+      }
+      radioAnon.addEventListener('change', syncContact);
+      radioIdent.addEventListener('change', syncContact);
+      syncContact();
+
+      /* ---- validation ---- */
+      function setError(id, on) {
+        var el = document.getElementById('err-' + id);
+        if (el) el.classList.toggle('visible', !!on);
+        var field = document.getElementById('wb' + id.charAt(0).toUpperCase() + id.slice(1));
+        if (field) field.classList.toggle('wb-invalid', !!on);
+      }
+
+      function validate() {
+        var firstBad = null;
+        var checks = [
+          ['category',       function (v) { return v !== ''; }],
+          ['description',    function (v) { return v.trim() !== ''; }],
+          ['incidentDate',   function (v) { return v !== ''; }],
+          ['location',       function (v) { return v !== ''; }],
+          ['peopleInvolved', function (v) { return v.trim() !== ''; }]
+        ];
+
+        if (radioIdent.checked) {
+          checks.push(['fullName',     function (v) { return v.trim() !== ''; }]);
+          checks.push(['relationship', function (v) { return v !== ''; }]);
+          checks.push(['email',        function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }]);
+        }
+
+        for (var i = 0; i < checks.length; i++) {
+          var name  = checks[i][0];
+          var test  = checks[i][1];
+          var field = document.getElementById('wb' + name.charAt(0).toUpperCase() + name.slice(1));
+          if (!field) continue;
+          var ok = test(field.value);
+          setError(name, !ok);
+          if (!ok && !firstBad) firstBad = field;
+        }
+        return firstBad;
+      }
+
+      // Clear a field's error as soon as the person starts fixing it.
+      form.addEventListener('input', function (e) {
+        var t = e.target;
+        if (t && t.name) setError(t.name, false);
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        formError.classList.remove('visible');
+
+        var firstBad = validate();
+        if (firstBad) {
+          formError.textContent = 'Please check the highlighted fields and try again.';
+          formError.classList.add('visible');
+          firstBad.focus();
+          firstBad.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        var emailField = document.getElementById('wbEmail');
+        var enteredEmail = emailField ? emailField.value.trim() : '';
+
+        fetch(form.action, { method: 'POST', body: new FormData(form) })
+          .then(function (res) {
+            return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+          })
+          .then(function (r) {
+            if (!r.ok || !r.data.ok) {
+              throw new Error((r.data && r.data.error) || 'Something went wrong. Please try again.');
+            }
+            showSuccess(r.data.reference, r.data.emailed ? enteredEmail : '');
+          })
+          .catch(function (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Report';
+            formError.textContent = err.message || 'We could not submit your report. Please try again, or email admin@tordelivery.com directly.';
+            formError.classList.add('visible');
+          });
+      });
+
+      function showSuccess(reference, email) {
+        document.getElementById('wbRefCode').textContent = reference;
+        if (email) {
+          document.getElementById('wbEmailedTo').textContent = email;
+          document.getElementById('wbEmailedNote').style.display = '';
+        }
+        formView.style.display = 'none';
+        successView.classList.add('visible');
+        successView.focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.getElementById('wbCopyBtn').addEventListener('click', function () {
+        var btn  = this;
+        var code = document.getElementById('wbRefCode').textContent;
+        var done = function () {
+          btn.textContent = 'Copied ✓';
+          setTimeout(function () { btn.textContent = 'Copy reference'; }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done, function () {});
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
