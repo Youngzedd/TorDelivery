@@ -73,13 +73,6 @@
 
     .deletion-form { display: flex; flex-direction: column; gap: 20px; }
     .deletion-form .form-group { margin-bottom: 0; }
-    .deletion-phone-wrap { position: relative; }
-    .deletion-phone-prefix {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      font-size: 15px; font-weight: 500; color: var(--gray); pointer-events: none;
-    }
-    .deletion-phone-wrap input { padding-left: 42px; }
-
     .deletion-reason { display: flex; flex-direction: column; gap: 10px; }
     .deletion-reason-option { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; transition: all .15s; }
     .deletion-reason-option:hover { border-color: var(--orange); background: var(--orange-light); }
@@ -279,10 +272,7 @@
 
               <div class="form-group">
                 <label for="phone">Registered Phone Number</label>
-                <div class="deletion-phone-wrap">
-                  <span class="deletion-phone-prefix">+234</span>
-                  <input type="tel" id="phone" name="phone" placeholder="0800 000 0000" autocomplete="tel" required />
-                </div>
+                <input type="tel" id="phone" name="phone" placeholder="0800 000 0000" autocomplete="tel" required />
               </div>
 
               <div class="form-group">
