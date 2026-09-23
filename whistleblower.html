@@ -41,6 +41,15 @@
     .wb-body { background: var(--bg); padding: 64px 0 96px; }
     .wb-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
 
+    /* Submitted state: show only the confirmation */
+    body.wb-submitted #wbHero,
+    body.wb-submitted #wbProtect,
+    body.wb-submitted #wbIntro,
+    body.wb-submitted #wbSidebar { display: none !important; }
+    body.wb-submitted .wb-body { padding-top: 64px; }
+    body.wb-submitted .wb-layout { grid-template-columns: 1fr; max-width: 640px; margin: 0 auto; }
+    body.wb-submitted .wb-form-card { padding: 48px 40px; }
+
     /* Non-retaliation banner */
     .wb-protect {
       background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-lg);
@@ -241,7 +250,7 @@
   </header>
 
   <!-- HERO -->
-  <section class="wb-hero">
+  <section class="wb-hero" id="wbHero">
     <div class="wb-hero-shapes">
       <div class="shape shape-1"></div>
       <div class="shape shape-2"></div>
@@ -268,7 +277,7 @@
 
       <!-- MAIN COLUMN -->
       <div>
-        <div class="wb-protect">
+        <div class="wb-protect" id="wbProtect">
           <div class="wb-protect-icon">
             <svg viewBox="0 0 20 20" fill="none" width="20" height="20" aria-hidden="true"><path d="M10 2l6 2.4v4.3c0 3.6-2.5 6.5-6 7.5-3.5-1-6-3.9-6-7.5V4.4L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.3 10l1.9 1.9 3.6-3.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -278,7 +287,7 @@
           </div>
         </div>
 
-        <div class="wb-intro">
+        <div class="wb-intro" id="wbIntro">
           <h2>About this channel</h2>
           <p>This channel exists so that concerns can be raised safely and acted on properly. It is open to anyone connected to Tor Delivery:</p>
           <div class="wb-who">
@@ -483,7 +492,7 @@
       </div>
 
       <!-- SIDEBAR -->
-      <aside class="wb-sidebar">
+      <aside class="wb-sidebar" id="wbSidebar">
         <div class="wb-info-card">
           <h3>
             <svg viewBox="0 0 16 16" fill="none" width="16" height="16" aria-hidden="true"><path d="M8 1.5l5 2v3.6c0 3-2.1 5.4-5 6.3-2.9-.9-5-3.3-5-6.3V3.5l5-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
@@ -701,6 +710,7 @@
         }
         formView.style.display = 'none';
         successView.classList.add('visible');
+        document.body.classList.add('wb-submitted');
         successView.focus();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
