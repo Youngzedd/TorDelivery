@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /submit-report.php
+Disallow: /whistleblower.html
+
+Sitemap: https://tordelivery.com/sitemap.xml
