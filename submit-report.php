@@ -2,9 +2,10 @@
 /**
  * Tor Delivery — form handler
  *
- * Handles two form types:
+ * Handles three form types:
  *   whistleblower  -> admin@tordelivery.com  (General Managing Director only)
  *   deletion       -> hello@tordelivery.com
+ *   contact        -> hello@tordelivery.com
  *
  * ROUTING — whistleblower reports go ONLY to the General Managing Director.
  * The page promises that managers, supervisors and other superiors never see
@@ -27,6 +28,7 @@ declare(strict_types=1);
 // ---------------------------------------------------------------- constants
 const RECIPIENT_WHISTLEBLOWER = 'admin@tordelivery.com';
 const RECIPIENT_DELETION      = 'hello@tordelivery.com';
+const RECIPIENT_CONTACT       = 'hello@tordelivery.com';
 const MAIL_FROM               = 'no-reply@tordelivery.com';
 
 const MAX_FIELD_LEN = 5000;
@@ -125,6 +127,8 @@ if ($formType === 'whistleblower') {
     handleWhistleblower();
 } elseif ($formType === 'deletion') {
     handleDeletion();
+} elseif ($formType === 'contact') {
+    handleContact();
 }
 fail('Unknown form type.');
 
@@ -302,6 +306,52 @@ function handleDeletion(): void {
 
     if (!sendMail(RECIPIENT_DELETION, '[' . $reference . '] Account deletion request', $body, $email ?: null)) {
         fail('We could not submit your request. Please try again, or email hello@tordelivery.com directly.', 500);
+    }
+
+    respond(200, ['ok' => true, 'reference' => $reference]);
+}
+
+function handleContact(): void {
+    $inquiryTypes = [
+        'E-commerce logistics', 'SME logistics', 'Corporate logistics', 'General enquiry',
+    ];
+
+    $name    = field('fullName', 200);
+    $company = field('company', 200);
+    $email   = field('email', 254);
+    $phone   = field('phone', 40);
+    $inquiry = field('inquiryType', 64);
+    $message = field('message');
+    $source  = field('pageSource', 64);
+
+    if ($name === '')                               fail('Please enter your full name.');
+    if ($email === '')                              fail('Please enter your email address.');
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('Please enter a valid email address.');
+    if (!oneOf($inquiry, $inquiryTypes))            fail('Please choose what you would like to discuss.');
+    if ($message === '')                            fail('Please tell us a little about what you need.');
+
+    $reference = referenceCode('TDC');
+
+    $body = implode("\n", [
+        'CONTACT / ENQUIRY',
+        str_repeat('=', 56),
+        'Reference: ' . $reference,
+        'Received:  ' . gmdate('Y-m-d H:i:s') . ' UTC',
+        'Source:    ' . ($source !== '' ? $source : '(not given)'),
+        '',
+        'Name:      ' . $name,
+        'Company:   ' . ($company !== '' ? $company : '(not given)'),
+        'Email:     ' . $email,
+        'Phone:     ' . ($phone !== '' ? $phone : '(not given)'),
+        'Enquiry:   ' . $inquiry,
+        '',
+        'MESSAGE',
+        str_repeat('-', 56),
+        $message,
+    ]);
+
+    if (!sendMail(RECIPIENT_CONTACT, '[' . $reference . '] ' . $inquiry . ' enquiry — ' . $name, $body, $email)) {
+        fail('We could not submit your enquiry. Please try again, or email hello@tordelivery.com directly.', 500);
     }
 
     respond(200, ['ok' => true, 'reference' => $reference]);

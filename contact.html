@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Tor Delivery</title>
+  <meta name="description" content="Talk to Tor Delivery about ecommerce logistics, SME delivery, or corporate courier services in Calabar and Uyo. Send an enquiry and hear back the same business day." />
+  <link rel="canonical" href="https://tordelivery.com/contact.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Open Graph / Twitter Card -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tor Delivery" />
+  <meta property="og:title" content="Contact Us | Tor Delivery" />
+  <meta property="og:description" content="Talk to Tor Delivery about ecommerce logistics, SME delivery, or corporate courier services in Calabar and Uyo. Send an enquiry and hear back the same business day." />
+  <meta property="og:url" content="https://tordelivery.com/contact.html" />
+  <meta property="og:image" content="https://tordelivery.com/Tor%20Delivery%20Logo.png" />
+  <meta property="og:locale" content="en_NG" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact Us | Tor Delivery" />
+  <meta name="twitter:description" content="Talk to Tor Delivery about ecommerce logistics, SME delivery, or corporate courier services in Calabar and Uyo. Send an enquiry and hear back the same business day." />
+  <meta name="twitter:image" content="https://tordelivery.com/Tor%20Delivery%20Logo.png" />
+
+  <style>
+    /* ---- CONTACT PAGE ---- */
+    .cpage-hero {
+      background: linear-gradient(135deg, #0f1217 0%, #1e2433 60%, #0f1217 100%);
+      padding: 140px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cpage-hero-shapes { position: absolute; inset: 0; pointer-events: none; }
+    .cpage-hero-shapes .shape { position: absolute; border-radius: 50%; opacity: .05; }
+    .cpage-hero-shapes .shape-1 { width: 400px; height: 400px; background: var(--orange); top: -140px; right: -60px; }
+    .cpage-hero-shapes .shape-2 { width: 280px; height: 280px; background: var(--blue); bottom: -60px; left: -80px; }
+    .cpage-hero-content { position: relative; z-index: 1; padding-bottom: 72px; }
+    .cpage-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .cpage-breadcrumb a { font-size: 14px; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; }
+    .cpage-breadcrumb a:hover { color: rgba(255,255,255,.9); }
+    .cpage-breadcrumb-sep { color: rgba(255,255,255,.25); font-size: 14px; }
+    .cpage-breadcrumb-current { font-size: 14px; color: var(--orange); font-weight: 500; }
+    .cpage-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -.02em; }
+    .cpage-hero p { font-size: 16px; color: rgba(255,255,255,.6); max-width: 540px; line-height: 1.7; }
+    .cpage-hero-wave { line-height: 0; }
+    .cpage-hero-wave svg { width: 100%; height: 56px; display: block; }
+
+    .cpage-body { background: var(--bg); padding: 64px 0 96px; }
+    .cpage-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+
+    .cpage-form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px;
+    }
+    .cpage-form-card h2 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .cpage-form-card > p { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 28px; }
+
+    .cpage-form { display: flex; flex-direction: column; }
+    .cpage-form .form-group { margin-bottom: 0; }
+    .cpage-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cpage-form > .form-group { margin-bottom: 16px; }
+
+    .cpage-submit-btn { margin-top: 8px; }
+
+    /* Success state */
+    .cpage-success { display: none; text-align: center; padding: 20px 0 8px; }
+    .cpage-success.visible { display: block; }
+    .cpage-success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--orange-light); color: var(--orange);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    }
+    .cpage-success h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .cpage-success p { color: var(--gray); font-size: 15px; max-width: 420px; margin: 0 auto; }
+    .cpage-success-ref {
+      display: inline-block; margin-top: 20px; padding: 12px 20px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      font-size: 14px; color: var(--dark);
+    }
+    .cpage-success-ref strong { color: var(--orange); }
+
+    /* Sidebar */
+    .cpage-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .cpage-info-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px;
+    }
+    .cpage-info-card h3 {
+      font-size: 15px; font-weight: 700; color: var(--dark);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .cpage-info-card h3 svg { color: var(--orange); flex-shrink: 0; }
+    .cpage-info-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .cpage-info-list li { display: flex; gap: 12px; align-items: flex-start; }
+    .cpage-info-icon {
+      width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+      background: var(--orange-light); color: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cpage-info-list strong { display: block; font-size: 13px; font-weight: 600; color: var(--dark); }
+    .cpage-info-list a, .cpage-info-list span { font-size: 14px; color: var(--gray); text-decoration: none; }
+    .cpage-info-list a { color: var(--blue); }
+    .cpage-info-list a:hover { text-decoration: underline; }
+
+    .cpage-wa-card {
+      background: linear-gradient(135deg, #0f1217 0%, #1e2433 100%);
+      border-radius: var(--radius-lg); padding: 24px; color: #fff;
+    }
+    .cpage-wa-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .cpage-wa-card p { font-size: 13.5px; color: rgba(255,255,255,.65); line-height: 1.6; margin-bottom: 16px; }
+
+    @media (max-width: 1024px) {
+      .cpage-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .cpage-hero { padding: 120px 0 0; }
+      .cpage-form-card { padding: 28px 20px; }
+      .cpage-form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-wrapper">
+    <nav class="nav container">
+      <a href="index.html" class="nav-logo">
+        <img src="Tor Delivery Logo.png" alt="Tor Delivery" class="logo-img" width="400" height="187" />
+        <span class="logo-text">Delivery</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="ecommerce-logistics.html">Ecommerce Logistics</a></li>
+        <li><a href="sme-logistics.html">SME Logistics</a></li>
+        <li><a href="corporate-logistics.html">Corporate Logistics</a></li>
+        <li><a href="index.html#app">Mobile App</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="https://wa.me/2348081590971" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Chat on WhatsApp →</a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#services" onclick="closeMobileMenu()">Services</a></li>
+      <li><a href="ecommerce-logistics.html" onclick="closeMobileMenu()">Ecommerce Logistics</a></li>
+      <li><a href="sme-logistics.html" onclick="closeMobileMenu()">SME Logistics</a></li>
+      <li><a href="corporate-logistics.html" onclick="closeMobileMenu()">Corporate Logistics</a></li>
+      <li><a href="index.html#app" onclick="closeMobileMenu()">Mobile App</a></li>
+      <li><a href="contact.html" onclick="closeMobileMenu()">Contact</a></li>
+      <li><a href="https://wa.me/2348081590971" target="_blank" rel="noopener" class="btn btn-primary" onclick="closeMobileMenu()">Chat on WhatsApp →</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="cpage-hero">
+    <div class="cpage-hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+    <div class="container cpage-hero-content">
+      <div class="cpage-breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="cpage-breadcrumb-sep">›</span>
+        <span class="cpage-breadcrumb-current">Contact</span>
+      </div>
+      <h1>Talk to Tor Delivery</h1>
+      <p>Tell us what you are moving and where. A member of our team replies the same business day, usually within the hour.</p>
+    </div>
+    <div class="cpage-hero-wave">
+      <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#f8f9fb"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <div class="cpage-body">
+    <div class="container cpage-layout">
+
+      <!-- FORM COLUMN -->
+      <div class="cpage-form-card">
+        <div id="contactFormView">
+          <h2>Send Us an Enquiry</h2>
+          <p>Fill in the form and we will come back to you with a plan, not a sales script.</p>
+
+          <form class="cpage-form" id="contactPageForm" method="post" action="submit-report.php" novalidate>
+            <input type="hidden" name="formType" value="contact" />
+            <input type="hidden" name="startedAt" id="cStartedAt" value="" />
+            <input type="hidden" name="pageSource" id="cPageSource" value="Contact page" />
+            <div style="position:absolute;left:-9999px;" aria-hidden="true">
+              <label for="cWebsite">Website</label>
+              <input type="text" id="cWebsite" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="cpage-form-grid">
+              <div class="form-group">
+                <label for="cFullName">Full Name</label>
+                <input type="text" id="cFullName" name="fullName" placeholder="Your name" autocomplete="name" required />
+              </div>
+              <div class="form-group">
+                <label for="cCompany">Company (optional)</label>
+                <input type="text" id="cCompany" name="company" placeholder="Business name" autocomplete="organization" />
+              </div>
+            </div>
+
+            <div class="cpage-form-grid">
+              <div class="form-group">
+                <label for="cEmail">Email Address</label>
+                <input type="email" id="cEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+              <div class="form-group">
+                <label for="cPhone">Phone Number (optional)</label>
+                <input type="tel" id="cPhone" name="phone" placeholder="0800 000 0000" autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cInquiryType">What would you like to discuss?</label>
+              <select id="cInquiryType" name="inquiryType" required>
+                <option value="">Select one…</option>
+                <option>E-commerce logistics</option>
+                <option>SME logistics</option>
+                <option>Corporate logistics</option>
+                <option>General enquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cMessage">Tell us about your delivery needs</label>
+              <textarea id="cMessage" name="message" rows="5" placeholder="What are you moving, how often, and where?" required></textarea>
+            </div>
+
+            <p id="cFormError" style="color:#dc2626;font-size:13px;display:none;margin:0 0 16px;"></p>
+
+            <button type="submit" class="btn btn-primary btn-full cpage-submit-btn" id="cSubmitBtn">
+              Send Enquiry
+            </button>
+          </form>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div class="cpage-success" id="contactSuccess">
+          <div class="cpage-success-icon">
+            <svg viewBox="0 0 32 32" fill="none" width="32" height="32"><path d="M6 16l7 7 13-13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Enquiry Received</h3>
+          <p>Thank you. A member of our team will reply to the email address you gave us, usually within the same business day.</p>
+          <div class="cpage-success-ref">Reference: <strong id="cRefNumber">TDC-000000</strong></div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="cpage-sidebar">
+        <div class="cpage-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M2 4a1 1 0 011-1h10a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V4zm1 0l6 4.5L15 4" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            Direct Contact
+          </h3>
+          <ul class="cpage-info-list">
+            <li>
+              <div class="cpage-info-icon">
+                <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm2 0l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:hello@tordelivery.com">hello@tordelivery.com</a>
+              </div>
+            </li>
+            <li>
+              <div class="cpage-info-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <div>
+                <strong>Phone</strong>
+                <a href="tel:+2348081590971">0808 159 0971</a>
+              </div>
+            </li>
+            <li>
+              <div class="cpage-info-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 2C6.686 2 4 4.686 4 8c0 5.25 6 10 6 10s6-4.75 6-10c0-3.314-2.686-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <div>
+                <strong>Head Office</strong>
+                <span>25 Murtala Mohammed Highway,<br/>Calabar, Cross River State</span>
+              </div>
+            </li>
+            <li>
+              <div class="cpage-info-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 2C6.686 2 4 4.686 4 8c0 5.25 6 10 6 10s6-4.75 6-10c0-3.314-2.686-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <div>
+                <strong>Akwa Ibom Office</strong>
+                <span>8 Usanga Udo Street (off Udo Umana),<br/>Uyo, Akwa Ibom State</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="cpage-wa-card">
+          <h3>Prefer to chat now?</h3>
+          <p>Skip the form. Message us directly on WhatsApp and get an answer in minutes, Mon–Sat.</p>
+          <a href="https://wa.me/2348081590971" target="_blank" rel="noopener" class="btn btn-whatsapp btn-full">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+
+        <div class="cpage-info-card">
+          <h3>
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Hours
+          </h3>
+          <p style="font-size:14px;color:var(--gray);">Mon–Sat · 8:00 AM – 6:00 PM</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="Tor Delivery Logo.png" alt="Tor Delivery" class="logo-img" width="400" height="187" />
+          <span class="logo-text">Delivery</span>
+        </div>
+        <p>Fast, professional, and dependable delivery services for individuals and businesses across Cross River and Akwa Ibom States.</p>
+        <div class="social-links">
+          <a href="https://wa.me/2348081590971" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/tordeliveryng" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/TorDeliveryNG" target="_blank" rel="noopener" aria-label="Facebook" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://x.com/tordeliveryng" target="_blank" rel="noopener" aria-label="X (Twitter)" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="ecommerce-logistics.html">E-Commerce Logistics</a></li>
+          <li><a href="sme-logistics.html">SME Logistics</a></li>
+          <li><a href="corporate-logistics.html">Corporate Logistics</a></li>
+          <li><a href="index.html#services">Courier &amp; Postal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#app">Mobile App</a></li>
+          <li><a href="index.html#investors">Investors</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-app-col">
+        <h4>Get the App</h4>
+        <div class="footer-badges">
+          <a class="store-badge store-badge-sm" href="https://wa.me/2348081590971" target="_blank" rel="noopener">
+            <svg class="store-badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 00-.5 1.15v18.1c0 .46.18.87.5 1.15l.1.08L13.8 12.1v-.24L3.7 1.72l-.1.08z" fill="#00D2FF"/><path d="M17.15 15.5l-3.35-3.4v-.24l3.35-3.39.08.05 3.98 2.26c1.14.64 1.14 1.7 0 2.35l-3.98 2.26-.08.11z" fill="#FFD400"/><path d="M17.23 15.44L13.8 12 3.6 22.2c.38.4 1 .45 1.7.05l11.93-6.81z" fill="#FF3A44"/><path d="M17.23 8.56L5.3 1.75c-.7-.4-1.32-.35-1.7.05L13.8 12l3.43-3.44z" fill="#00E676"/></svg>
+            <span class="store-badge-text">
+              <span class="store-badge-top">GET IT ON</span>
+              <span class="store-badge-name">Google Play</span>
+            </span>
+          </a>
+          <a class="store-badge store-badge-sm" href="https://wa.me/2348081590971" target="_blank" rel="noopener">
+            <svg class="store-badge-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.94c-.03-2.75 2.25-4.07 2.35-4.13-1.28-1.87-3.27-2.13-3.98-2.16-1.7-.17-3.31 1-4.17 1-.86 0-2.19-.98-3.6-.95-1.85.03-3.56 1.08-4.51 2.73-1.92 3.34-.49 8.28 1.38 10.99.91 1.33 2 2.82 3.43 2.76 1.38-.05 1.9-.89 3.57-.89 1.66 0 2.14.89 3.6.86 1.49-.02 2.43-1.35 3.34-2.68 1.05-1.54 1.49-3.03 1.51-3.11-.03-.01-2.9-1.11-2.92-4.42zM14.3 4.87c.76-.92 1.27-2.19 1.13-3.46-1.09.04-2.42.73-3.2 1.64-.7.81-1.31 2.11-1.15 3.35 1.22.1 2.46-.62 3.22-1.53z"/></svg>
+            <span class="store-badge-text">
+              <span class="store-badge-top">Download on the</span>
+              <span class="store-badge-name">App Store</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@tordelivery.com">hello@tordelivery.com</a></li>
+          <li><a href="tel:+2348081590971">0808 159 0971</a></li>
+          <li><a href="contact.html">Head Office<br/>25 Murtala Mohammed Highway,<br/>Calabar, Cross River State</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Tor Delivery Limited. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="whistleblower.html">Whistleblower / Report a Concern</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP WIDGET -->
+  <div class="wa-widget" id="waWidget">
+    <div class="wa-popup" id="waPopup">
+      <div class="wa-popup-header">
+        <div class="wa-popup-avatar">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="wa-popup-info">
+          <p class="wa-popup-name">Tor Delivery Support</p>
+          <p class="wa-popup-status"><span class="wa-online-dot"></span> Typically replies instantly</p>
+        </div>
+        <button class="wa-close" id="waClose" aria-label="Close">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="wa-popup-body">
+        <div class="wa-bubble">
+          <p>Hi there! 👋</p>
+          <p>Questions about an order, pricing, or partnering with us? Our support team is here Mon–Sat.</p>
+          <span class="wa-time">Just now</span>
+        </div>
+      </div>
+      <a href="https://wa.me/2348081590971?text=Hi%20Tor%20Delivery%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-start-chat">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Start Chat
+      </a>
+    </div>
+    <button class="wa-fab" id="waFab" aria-label="Chat with support on WhatsApp">
+      <span class="wa-fab-icon wa-fab-open">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </span>
+      <span class="wa-fab-icon wa-fab-close" style="display:none">
+        <svg viewBox="0 0 20 20" fill="none" width="24" height="24"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </span>
+      <span class="wa-notification-dot"></span>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const cForm = document.getElementById('contactPageForm');
+    const cFormView = document.getElementById('contactFormView');
+    const cSuccessView = document.getElementById('contactSuccess');
+    const cErrorEl = document.getElementById('cFormError');
+    const cSubmitBtn = document.getElementById('cSubmitBtn');
+    const cRefEl = document.getElementById('cRefNumber');
+
+    document.getElementById('cStartedAt').value = String(Date.now());
+
+    // Pre-select the inquiry type if arriving via ?topic= from a service page
+    const cParams = new URLSearchParams(window.location.search);
+    const cTopic = cParams.get('topic');
+    if (cTopic) {
+      const cSelect = document.getElementById('cInquiryType');
+      for (const opt of cSelect.options) {
+        if (opt.value === cTopic) { cSelect.value = cTopic; break; }
+      }
+    }
+
+    cForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      cErrorEl.style.display = 'none';
+
+      const name = document.getElementById('cFullName').value.trim();
+      const email = document.getElementById('cEmail').value.trim();
+      const inquiry = document.getElementById('cInquiryType').value;
+      const message = document.getElementById('cMessage').value.trim();
+
+      if (!name) { cShowError('Please enter your full name.'); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        cShowError('Please enter a valid email address.'); return;
+      }
+      if (!inquiry) { cShowError('Please choose what you would like to discuss.'); return; }
+      if (!message) { cShowError('Please tell us a little about what you need.'); return; }
+
+      cSubmitBtn.disabled = true;
+      cSubmitBtn.textContent = 'Sending…';
+
+      fetch(cForm.action, { method: 'POST', body: new FormData(cForm) })
+        .then(function (res) {
+          return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+        })
+        .then(function (r) {
+          if (!r.ok || !r.data.ok) {
+            throw new Error((r.data && r.data.error) || 'Something went wrong. Please try again.');
+          }
+          cRefEl.textContent = r.data.reference;
+          cFormView.style.display = 'none';
+          cSuccessView.classList.add('visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(function (err) {
+          cSubmitBtn.disabled = false;
+          cSubmitBtn.textContent = 'Send Enquiry';
+          cShowError(err.message || 'We could not send your enquiry. Please try again, or email hello@tordelivery.com directly.');
+        });
+    });
+
+    function cShowError(msg) {
+      cErrorEl.textContent = msg;
+      cErrorEl.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
