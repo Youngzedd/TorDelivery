@@ -72,10 +72,34 @@ body { font-family: var(--font); color: var(--dark); background: var(--white); l
 .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
 .logo-img { height: 36px; width: auto; }
 .logo-text { font-size: 18px; font-weight: 800; color: var(--blue); letter-spacing: -.02em; }
-.nav-links { display: flex; list-style: none; gap: 4px; margin-left: auto; }
+.nav-links { display: flex; align-items: center; list-style: none; gap: 4px; margin-left: auto; }
 .nav-links a { color: var(--dark); text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: all .15s; }
 .nav-links a:hover { background: var(--bg); color: var(--orange); }
 .nav-cta { margin-left: 8px; padding: 10px 20px; font-size: 14px; }
+
+/* ---- NAV DROPDOWN ---- */
+.nav-dropdown { position: relative; }
+.nav-dropdown-trigger { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown-trigger svg { transition: transform .15s; flex-shrink: 0; }
+.nav-dropdown:hover .nav-dropdown-trigger svg,
+.nav-dropdown:focus-within .nav-dropdown-trigger svg { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-6px);
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); min-width: 200px; padding: 6px;
+  list-style: none; opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .15s ease, transform .15s ease, visibility .15s;
+  z-index: 1001;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu::before {
+  content: ""; position: absolute; top: -14px; left: 0; right: 0; height: 14px;
+}
+.nav-dropdown-menu li { width: 100%; }
+.nav-dropdown-menu a { display: block; padding: 10px 14px; border-radius: 8px; font-size: 14px; }
 .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; margin-left: auto; }
 .nav-toggle span { width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: all .2s; }
 
@@ -90,6 +114,8 @@ body { font-family: var(--font); color: var(--dark); background: var(--white); l
 .mobile-menu a { display: block; padding: 14px 16px; font-size: 16px; font-weight: 500; color: var(--dark); text-decoration: none; border-radius: 8px; }
 .mobile-menu a:hover { background: var(--bg); }
 .mobile-menu .btn { margin-top: 16px; text-align: center; }
+.mobile-menu-label { padding: 14px 16px 4px; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--gray-light); }
+.mobile-menu-sub a { padding-left: 28px; font-size: 15px; }
 
 /* ---- HERO ---- */
 .hero {

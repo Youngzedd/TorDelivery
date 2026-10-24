@@ -134,9 +134,16 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html#services">Services</a></li>
-        <li><a href="ecommerce-logistics.html">Ecommerce Logistics</a></li>
-        <li><a href="sme-logistics.html">SME Logistics</a></li>
-        <li><a href="corporate-logistics.html">Corporate Logistics</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-dropdown-trigger" onclick="return false;">Solutions
+            <svg viewBox="0 0 12 8" width="10" height="7" fill="none" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="ecommerce-logistics.html">Ecommerce</a></li>
+            <li><a href="sme-logistics.html">SME</a></li>
+            <li><a href="corporate-logistics.html">Corporate</a></li>
+          </ul>
+        </li>
         <li><a href="index.html#app">Mobile App</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -151,9 +158,10 @@
   <div class="mobile-menu" id="mobileMenu">
     <ul>
       <li><a href="index.html#services" onclick="closeMobileMenu()">Services</a></li>
-      <li><a href="ecommerce-logistics.html" onclick="closeMobileMenu()">Ecommerce Logistics</a></li>
-      <li><a href="sme-logistics.html" onclick="closeMobileMenu()">SME Logistics</a></li>
-      <li><a href="corporate-logistics.html" onclick="closeMobileMenu()">Corporate Logistics</a></li>
+      <li class="mobile-menu-label">Solutions</li>
+      <li class="mobile-menu-sub"><a href="ecommerce-logistics.html" onclick="closeMobileMenu()">Ecommerce</a></li>
+      <li class="mobile-menu-sub"><a href="sme-logistics.html" onclick="closeMobileMenu()">SME</a></li>
+      <li class="mobile-menu-sub"><a href="corporate-logistics.html" onclick="closeMobileMenu()">Corporate</a></li>
       <li><a href="index.html#app" onclick="closeMobileMenu()">Mobile App</a></li>
       <li><a href="contact.html" onclick="closeMobileMenu()">Contact</a></li>
       <li><a href="https://wa.me/2348081590971" target="_blank" rel="noopener" class="btn btn-primary" onclick="closeMobileMenu()">Chat on WhatsApp →</a></li>
@@ -218,8 +226,8 @@
                 <input type="email" id="cEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
               </div>
               <div class="form-group">
-                <label for="cPhone">Phone Number (optional)</label>
-                <input type="tel" id="cPhone" name="phone" placeholder="0800 000 0000" autocomplete="tel" />
+                <label for="cPhone">Phone Number</label>
+                <input type="tel" id="cPhone" name="phone" placeholder="0800 000 0000" autocomplete="tel" required />
               </div>
             </div>
 
@@ -361,7 +369,6 @@
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="index.html#how-it-works">How It Works</a></li>
           <li><a href="index.html#app">Mobile App</a></li>
           <li><a href="index.html#investors">Investors</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -472,6 +479,7 @@
 
       const name = document.getElementById('cFullName').value.trim();
       const email = document.getElementById('cEmail').value.trim();
+      const phone = document.getElementById('cPhone').value.trim();
       const inquiry = document.getElementById('cInquiryType').value;
       const message = document.getElementById('cMessage').value.trim();
 
@@ -479,6 +487,7 @@
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         cShowError('Please enter a valid email address.'); return;
       }
+      if (!phone) { cShowError('Please enter your phone number.'); return; }
       if (!inquiry) { cShowError('Please choose what you would like to discuss.'); return; }
       if (!message) { cShowError('Please tell us a little about what you need.'); return; }
 

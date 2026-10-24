@@ -327,6 +327,7 @@ function handleContact(): void {
     if ($name === '')                               fail('Please enter your full name.');
     if ($email === '')                              fail('Please enter your email address.');
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('Please enter a valid email address.');
+    if ($phone === '')                              fail('Please enter your phone number.');
     if (!oneOf($inquiry, $inquiryTypes))            fail('Please choose what you would like to discuss.');
     if ($message === '')                            fail('Please tell us a little about what you need.');
 
@@ -342,7 +343,7 @@ function handleContact(): void {
         'Name:      ' . $name,
         'Company:   ' . ($company !== '' ? $company : '(not given)'),
         'Email:     ' . $email,
-        'Phone:     ' . ($phone !== '' ? $phone : '(not given)'),
+        'Phone:     ' . $phone,
         'Enquiry:   ' . $inquiry,
         '',
         'MESSAGE',

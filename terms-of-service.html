@@ -158,11 +158,16 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#how-it-works">How It Works</a></li>
-        <li><a href="index.html#ecommerce">E-Commerce</a></li>
-        <li><a href="ecommerce-logistics.html">Ecommerce Logistics</a></li>
-        <li><a href="sme-logistics.html">SME Logistics</a></li>
-        <li><a href="corporate-logistics.html">Corporate Logistics</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-dropdown-trigger" onclick="return false;">Solutions
+            <svg viewBox="0 0 12 8" width="10" height="7" fill="none" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="ecommerce-logistics.html">Ecommerce</a></li>
+            <li><a href="sme-logistics.html">SME</a></li>
+            <li><a href="corporate-logistics.html">Corporate</a></li>
+          </ul>
+        </li>
         <li><a href="index.html#app">Mobile App</a></li>
         <li><a href="index.html#investors">Investors</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -178,11 +183,10 @@
   <div class="mobile-menu" id="mobileMenu">
     <ul>
       <li><a href="index.html#services" onclick="closeMobileMenu()">Services</a></li>
-      <li><a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
-      <li><a href="index.html#ecommerce" onclick="closeMobileMenu()">E-Commerce</a></li>
-      <li><a href="ecommerce-logistics.html" onclick="closeMobileMenu()">Ecommerce Logistics</a></li>
-      <li><a href="sme-logistics.html" onclick="closeMobileMenu()">SME Logistics</a></li>
-      <li><a href="corporate-logistics.html" onclick="closeMobileMenu()">Corporate Logistics</a></li>
+      <li class="mobile-menu-label">Solutions</li>
+      <li class="mobile-menu-sub"><a href="ecommerce-logistics.html" onclick="closeMobileMenu()">Ecommerce</a></li>
+      <li class="mobile-menu-sub"><a href="sme-logistics.html" onclick="closeMobileMenu()">SME</a></li>
+      <li class="mobile-menu-sub"><a href="corporate-logistics.html" onclick="closeMobileMenu()">Corporate</a></li>
       <li><a href="index.html#app" onclick="closeMobileMenu()">Mobile App</a></li>
       <li><a href="index.html#investors" onclick="closeMobileMenu()">Investors</a></li>
       <li><a href="contact.html" onclick="closeMobileMenu()">Contact</a></li>
@@ -736,8 +740,7 @@
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="index.html#how-it-works">How It Works</a></li>
-          <li><a href="index.html#investors">Investors</a></li>
+            <li><a href="index.html#investors">Investors</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </div>
