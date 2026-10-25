@@ -28,8 +28,15 @@ declare(strict_types=1);
 // ---------------------------------------------------------------- constants
 const RECIPIENT_WHISTLEBLOWER = 'admin@tordelivery.com';
 const RECIPIENT_DELETION      = 'hello@tordelivery.com';
-const RECIPIENT_CONTACT       = 'hello@tordelivery.com';
 const MAIL_FROM               = 'no-reply@tordelivery.com';
+
+// Contact enquiries route to the relevant department by inquiry type.
+const CONTACT_RECIPIENTS = [
+    'General enquiry'      => 'hello@tordelivery.com',
+    'SME logistics'        => 'sme@tordelivery.com',
+    'E-commerce logistics' => 'ecom@tordelivery.com',
+    'Corporate logistics'  => 'corporate@tordelivery.com',
+];
 
 const MAX_FIELD_LEN = 5000;
 const MIN_FILL_SECS = 3;      // faster than this is almost certainly a bot
@@ -312,9 +319,7 @@ function handleDeletion(): void {
 }
 
 function handleContact(): void {
-    $inquiryTypes = [
-        'E-commerce logistics', 'SME logistics', 'Corporate logistics', 'General enquiry',
-    ];
+    $inquiryTypes = array_keys(CONTACT_RECIPIENTS);
 
     $name    = field('fullName', 200);
     $company = field('company', 200);
@@ -351,7 +356,9 @@ function handleContact(): void {
         $message,
     ]);
 
-    if (!sendMail(RECIPIENT_CONTACT, '[' . $reference . '] ' . $inquiry . ' enquiry — ' . $name, $body, $email)) {
+    $recipient = CONTACT_RECIPIENTS[$inquiry];
+
+    if (!sendMail($recipient, '[' . $reference . '] ' . $inquiry . ' enquiry — ' . $name, $body, $email)) {
         fail('We could not submit your enquiry. Please try again, or email hello@tordelivery.com directly.', 500);
     }
 
