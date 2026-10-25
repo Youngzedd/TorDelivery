@@ -64,11 +64,16 @@ jobs:
             sleep 1
           done
 
-          # A couple of other pages that must exist, plus confirm PHP is
-          # actually executing submit-report.php rather than being served
-          # as flat text (a GET should hit its own 405 JSON response).
-          status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:8080/contact.html")
-          [ "$status" = "200" ] || { echo "contact.html returned $status"; exit 1; }
+          # Clean URLs: /contact must serve the page, and the old .html form
+          # must 301-redirect to it (see .htaccess).
+          status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:8080/contact")
+          [ "$status" = "200" ] || { echo "/contact returned $status"; exit 1; }
+
+          redirect_status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:8080/contact.html")
+          [ "$redirect_status" = "301" ] || { echo "/contact.html returned $redirect_status, expected 301"; exit 1; }
+
+          # Confirm PHP is actually executing submit-report.php rather than
+          # being served as flat text (a GET should hit its own 405 response).
 
           php_status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:8080/submit-report.php")
           [ "$php_status" = "405" ] || { echo "submit-report.php returned $php_status, expected 405 (PHP not executing?)"; exit 1; }
