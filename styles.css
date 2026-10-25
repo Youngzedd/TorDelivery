@@ -690,8 +690,8 @@ body { font-family: var(--font); color: var(--dark); background: var(--white); l
   .hero-sub { max-width: none; }
   .why-us-grid { grid-template-columns: 1fr; gap: 48px; }
   .investors-inner { grid-template-columns: 1fr; gap: 48px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .footer-brand { grid-column: span 2; }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .footer-brand { grid-column: span 3; }
   .coverage-inner { grid-template-columns: 1fr; gap: 40px; }
   .ecom-inner { grid-template-columns: 1fr; gap: 40px; }
   .ecom-visual { order: 2; }
