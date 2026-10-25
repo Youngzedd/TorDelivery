@@ -5,7 +5,7 @@
 # the whistleblower, account-deletion and contact forms and relies on PHP's
 # mail() function. Everything else is served as-is.
 
-FROM php:8.2-apache
+FROM php:8.5.12-apache
 
 # Apache's default docroot is /var/www/html; copy the whole repo there.
 WORKDIR /var/www/html
@@ -35,9 +35,17 @@ RUN rm -rf \
       /var/www/html/README.md \
       /var/www/html/Dockerfile
 
-# Apache's mod_rewrite isn't currently used by any page, but enabling it is
-# harmless and keeps the door open if clean URLs are added later.
-RUN a2enmod rewrite
+# Clean URLs (e.g. /contact instead of /contact.html) are handled by the
+# .htaccess at the docroot via mod_rewrite. The default php:8.2-apache vhost
+# has AllowOverride None for /var/www/, which makes Apache silently ignore
+# .htaccess entirely — this explicitly permits it for our docroot only.
+RUN a2enmod rewrite \
+    && { \
+      echo '<Directory /var/www/html>'; \
+      echo '  AllowOverride All'; \
+      echo '</Directory>'; \
+    } > /etc/apache2/conf-available/htaccess-allow.conf \
+    && a2enconf htaccess-allow
 
 EXPOSE 80
 

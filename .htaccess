@@ -1,0 +1,27 @@
+# Clean URLs: serve page.html at /page, with a canonical redirect from the
+# .html form so there is exactly one URL per page (matters for SEO — avoids
+# duplicate-content between /contact and /contact.html).
+#
+# submit-report.php, styles.css, script.js, images, robots.txt, sitemap.xml
+# etc. are untouched: the rules below only ever fire for requests that don't
+# already match a real file or directory, so nothing with its own extension
+# is affected.
+
+RewriteEngine On
+
+# index.html / index -> / (the homepage has exactly one canonical URL: "/")
+RewriteCond %{THE_REQUEST} \s/+(?:index(?:\.html)?)[\s?] [NC]
+RewriteRule ^ /? [R=301,L]
+
+# /page.html -> /page (redirect first, so old/typed .html links converge on
+# the clean URL instead of both forms working side by side)
+RewriteCond %{THE_REQUEST} \s/+([^.\s]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# /page -> serve page.html, without changing what shows in the address bar.
+# Only applies when /page isn't already a real file or directory, so this
+# never intercepts submit-report.php, styles.css, assets, etc.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]

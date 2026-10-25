@@ -2,25 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tordelivery.com/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://tordelivery.com/privacy-policy.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <loc>https://tordelivery.com/ecommerce-logistics</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tordelivery.com/sme-logistics</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tordelivery.com/corporate-logistics</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tordelivery.com/contact</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tordelivery.com/privacy-policy</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://tordelivery.com/terms-of-service.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <loc>https://tordelivery.com/terms-of-service</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://tordelivery.com/data-deletion.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <loc>https://tordelivery.com/data-deletion</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
