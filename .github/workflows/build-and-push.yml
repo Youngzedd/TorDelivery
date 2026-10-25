@@ -97,3 +97,11 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Trigger Dokploy deploy
+        # DEPLOY_PATH holds the Dokploy deploy webhook URL (name is a
+        # leftover from the old SSH/SCP workflow, where it was a server
+        # path — repurposed here rather than renamed). Dokploy only
+        # pulls+redeploys when this is hit; pushing a new image to GHCR
+        # does not trigger it on its own.
+        run: curl -fsS -X POST "${{ secrets.DEPLOY_PATH }}"
